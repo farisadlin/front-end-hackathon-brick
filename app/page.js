@@ -50,14 +50,14 @@ export default function Home() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4 text-center">Chat with Brick</h1>
+      <h1 className="text-3xl font-bold mb-4 text-center text-primary">Chat with Brick</h1>
     
       {/* Chat window for displaying messages */}
       <div className="chat-window bg-neutral p-4 shadow rounded-lg h-[80vh] overflow-y-auto">
           {/* Messages will be dynamically inserted here */}
           {messages.map((msg, index) => (
             <div key={index} className={`chat-message ${msg.type === 'user' ? 'text-right' : ''}`}>
-              <span className={`inline-block px-3 py-2 rounded-lg max-w-xs m-1 text-white ${msg.type === 'user' ? 'bg-accent' : 'bg-neutral border border-gray-500'}`}>
+              <span className={`inline-block px-3 py-2 rounded-lg max-w-xs m-1 text-white ${msg.type === 'user' ? 'bg-primary' : 'bg-neutral border border-gray-500'}`}>
                 {msg.text}
               </span>
             </div>
@@ -84,6 +84,6 @@ export default function Home() {
 
 function Spinner() {
   return (
-      <span class="loading loading-spinner loading-lg cursor-wait"></span>
+      <span class="loading loading-spinner loading-lg cursor-wait text-primary"></span>
   );
 }
