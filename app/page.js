@@ -3,18 +3,26 @@
 import { useState } from 'react';
 import axios from 'axios';
 
+function linkify(inputText) {
+  const urlRegex = /wa\.me\/\d+/g;
+  return inputText.replace(urlRegex, (url) => {
+    const fullUrl = `https://${url}`;
+    // Use the custom CSS class
+    return `<a href="${fullUrl}" class="custom-link" target="_blank" rel="noopener noreferrer">${url}</a>`;
+  });
+}
+
+function breakDownText(text) {
+  // Split the text by newline characters
+  const parts = text.split('\n').map(part => part.trim()).filter(part => part !== '');
+  return parts;
+}
+
 export default function Home() {
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState([]);
   const [isSending, setIsSending] = useState(false);
 
-  function breakDownText(text) {
-    // Split the text by newline characters
-    const parts = text.split('\n').map(part => part.trim()).filter(part => part !== '');
-  
-    return parts;
-  }
-  
   const sendMessage = async () => {
     if (!input.trim()) return;
     
@@ -54,14 +62,14 @@ export default function Home() {
     
       {/* Chat window for displaying messages */}
       <div className="chat-window bg-neutral p-4 shadow rounded-lg h-[80vh] overflow-y-auto">
-          {/* Messages will be dynamically inserted here */}
-          {messages.map((msg, index) => (
-            <div key={index} className={`chat-message ${msg.type === 'user' ? 'text-right' : ''}`}>
-              <span className={`inline-block px-3 py-2 rounded-lg max-w-xs m-1 text-white ${msg.type === 'user' ? 'bg-primary' : 'bg-neutral border border-gray-500'}`}>
-                {msg.text}
-              </span>
-            </div>
-          ))}
+        {messages.map((msg, index) => (
+          <div key={index} className={`chat-message ${msg.type === 'user' ? 'text-right' : ''}`}>
+            <span
+              className={`inline-block px-3 py-2 rounded-lg max-w-xs m-1 text-white ${msg.type === 'user' ? 'bg-primary' : 'bg-neutral border border-gray-500'}`}
+              dangerouslySetInnerHTML={{ __html: linkify(msg.text) }}
+            />
+          </div>
+        ))}
       </div>
       <div className="mt-4 flex">
         <input

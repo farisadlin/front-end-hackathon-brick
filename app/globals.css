@@ -37,3 +37,8 @@ body {
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
+
+.custom-link {
+  color: aqua; /* Set your desired color */
+  text-decoration: underline; /* Example of additional styling */
+}
