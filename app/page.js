@@ -27,12 +27,12 @@ export default function Home() {
 
       const formattedResponse = breakDownText(response.data.response);
 
+      setMessages(prevMessages => [...prevMessages, { type: 'user', text: input }]);
       // Adding each part as a separate message
       formattedResponse.forEach(msg => {
         setMessages(prevMessages => [...prevMessages, { type: 'bot', text: msg }]);
       });
 
-      // setMessages([...messages, { type: 'user', text: input }, { type: 'bot', text: response.data.response }]);
     } catch (error) {
       console.error('Error sending message:', error);
       setMessages([...messages, { type: 'error', text: 'Error sending message.' }]);
